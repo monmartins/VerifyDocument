@@ -17,19 +17,27 @@ angular.module('verifydocument').controller('TokenController', function($scope, 
                  estate: usuario.estate
                 })
             .then(function(s) {
-                console.log(s.data);
                 $location.path('/');
-                if(s.data.hash=""){
+                if(s.data.hash==""){
                     $scope.mensagem = s.data.messageAlert;
-                    $scope.hash = s.data.messageAlert;    
+                    $scope.hash = "";    
 
                 }else{
-                    $scope.hash = s.data.hash;     
+                    $scope.hash = s.data.hash.substring(0,16)+" "+
+                    s.data.hash.substring(16,32)+" "+
+                    s.data.hash.substring(32,48)+" "+
+                    s.data.hash.substring(48,64)+" "+
+                    s.data.hash.substring(64,80)+" "+
+                    s.data.hash.substring(80,96)+" "+
+                    s.data.hash.substring(96,112)+" "+
+                    s.data.hash.substring(112,128); 
+                    $scope.mensagem = "";    
                 }
 
             }, function(erro) {
+                console.log("erro");
                 $scope.usuario = {};
-                $scope.mensagem = 'Preenchimento do formulário ocorreu de maneira errada.';
+                $scope.mensagem = 'Preenchimento do formulário ocorreu de maneira errada,preencha todos os campos.';
             });
         };
     });

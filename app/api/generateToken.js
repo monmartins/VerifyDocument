@@ -17,7 +17,7 @@ module.exports = function(app) {
                                     "\n"+req.body.cpf+
                                     "\n"+req.body.cep+
                                     "\n"+req.body.city+
-                                    "\n"+req.body.state)
+                                    "\n"+req.body.estate)
                             .digest('hex');
         var user = new model();
         user.name = req.body.name;
@@ -31,22 +31,16 @@ module.exports = function(app) {
 
         try {
             user.save(function (err, user) {
-                if (err){                    
-                    console.log(err) ;
-                    res.send({messageAlert:"Preencha todo os campos corretamente.",hash:""}).end();
-                    return;
+                if (err){                
+                    res.send({messageAlert:"Preencha todo os campos corretamente,preencha todos os campos.",hash:""}).end();
                 } else{
-                    console.log("user")
-                    console.log(user)
-                    console.log("/user")
-                    res.send({messageAlert:"",hash:hash}).end();
-                    return;
+                    res.send({messageAlert:"",'hash':hash}).end();
                 }
             });
             
         }
         catch(err) {
-            res.send({messageAlert:"Preencha todo os campos corretamente.",hash:""}).end();
+            res.send({messageAlert:"Preencha todo os campos corretamente,preencha todos os campos.",hash:""}).end();
         }
         
 
